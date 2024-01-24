@@ -6,8 +6,5 @@ import { AddressEntity } from './entities/address.entity';
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
-  @Get()
-  async getAllAddress(): Promise<AddressEntity[]> {
-    return this.addressService.getAllAddress();
-  }
+  
 }

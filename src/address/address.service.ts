@@ -9,7 +9,7 @@ export class AddressService {
     @InjectRepository(AddressEntity)
     private readonly addressRepository: Repository<AddressEntity>) {}
 
-  async getAllAddress() {
-    return this.addressRepository.find();
-  }
+    async createAddress(address: AddressEntity): Promise<AddressEntity>{
+      
+    }
 }
