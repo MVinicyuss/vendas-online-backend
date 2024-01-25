@@ -6,7 +6,7 @@ export class CreateTableAddress1705327515451 implements MigrationInterface {
             CREATE TABLE public.address (
                 id integer NOT NULL,
                 user_id integer NOT NULL,
-                complement varchar NOT NULL,
+                complement varchar,
                 number integer NOT NULL,
                 cep varchar NOT NULL,
                 city_id integer NOT NULL,

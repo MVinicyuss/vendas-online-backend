@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateAddressDto{
   @IsString()
@@ -6,7 +6,7 @@ export class CreateAddressDto{
   complement: string;
 
   @IsNumber()
-  numberAddress: number;
+  number: number;
 
   @IsString()
   cep: string;
