@@ -11,11 +11,7 @@ export class AuthService {
     ){}
 
     async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
-        const user: UserEntity = await this.userService.findUserByEmail(loginUserDto.email).catch(() => undefined);
-
-        if(!user){
-            throw new NotFoundException('Email not found');
-        }
+        const user: UserEntity = await this.userService.findUserByEmail(loginUserDto.email).catch((err) => {throw err});
         
         const isPasswordValid = await hash(loginUserDto.password, user?.password);
          
