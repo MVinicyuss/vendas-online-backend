@@ -28,6 +28,16 @@ export class UserService {
     return this.userRepository.find();
   }
 
+  async getUserByIdWithRelations(userId: number): Promise<UserEntity> {
+    await this.getUserById(userId);
+    return this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+      relations: ['addresses'],
+    });
+  }
+
   async getUserById(userId: number): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: {
