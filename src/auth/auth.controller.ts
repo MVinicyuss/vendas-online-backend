@@ -1,17 +1,21 @@
-import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { LoginUserDto } from './dtos/login.dto';
 import { AuthService } from './auth.service';
-import { ReturnUserDto } from 'src/user/dtos/returnUser.dto';
+import { ReturnLoginDto } from './dtos/returnLogin.dto';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
-    constructor(private readonly authService: AuthService) {}
-
-    @UsePipes(ValidationPipe)
-    @Post('/login')
-    async login(@Body() loginUserDto: LoginUserDto): Promise<ReturnUserDto>  {
-      return new ReturnUserDto(await this.authService.login(loginUserDto));
-    }
-    
+  @UsePipes(ValidationPipe)
+  @Post('/login')
+  async login(@Body() loginUserDto: LoginUserDto): Promise<ReturnLoginDto> {
+    return await this.authService.login(loginUserDto);
+  }
 }

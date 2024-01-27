@@ -37,8 +37,8 @@ export class UserService {
       relations: {
         addresses: {
           city: {
-            state: true
-          }
+            state: true,
+          },
         },
       },
     });
@@ -65,7 +65,7 @@ export class UserService {
       },
     });
 
-    if(!user){
+    if (!user) {
       throw new NotFoundException('User not found');
     }
 
