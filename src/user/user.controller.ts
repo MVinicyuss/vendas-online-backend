@@ -14,6 +14,7 @@ import { ReturnUserDto } from './dtos/returnUser.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Get()
   async getAllUser(): Promise<ReturnUserDto[]> {
     return (await this.userService.getAllUser()).map(

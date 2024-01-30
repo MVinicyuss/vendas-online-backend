@@ -2,6 +2,8 @@ import { Body, Controller, Param, Post, UsePipes, ValidationPipe } from '@nestjs
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dtos/createAddress.dto';
 import { ReturnAddressDto } from './dtos/returnAddress.dto';
+import { Roles } from 'src/decorators/roles.decorator';
+import { UserType } from 'src/user/enum/user-type.enum';
 
 @Controller('address')
 export class AddressController {
@@ -9,6 +11,7 @@ export class AddressController {
 
   @UsePipes(ValidationPipe)
   @Post("/:userId")
+  @Roles(UserType.User)
   async createAddress(@Body() createAddressDto: CreateAddressDto, @Param("userId") userId: number): Promise<ReturnAddressDto>{
     return (await this.addressService.createAddress(createAddressDto, userId).then((address) => new ReturnAddressDto(address)));
   }
