@@ -6,7 +6,7 @@ import { hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ReturnLoginDto } from './dtos/returnLogin.dto';
 import { ReturnUserDto } from 'src/user/dtos/returnUser.dto';
-import { loginPayloadDto } from './dtos/loginPayload.dto';
+import { LoginPayloadDto } from './dtos/loginPayload.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     return {
-      accessToken: this.jwtService.sign({ ...new loginPayloadDto(user) }),
+      accessToken: this.jwtService.sign({ ...new LoginPayloadDto(user) }),
       user: new ReturnUserDto(user),
     };
   }
