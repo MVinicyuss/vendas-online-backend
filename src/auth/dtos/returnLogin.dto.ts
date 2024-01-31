@@ -1,5 +1,5 @@
-import { ReturnUserDto } from 'src/user/dtos/returnUser.dto';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { ReturnUserDto } from '../../user/dtos/returnUser.dto';
+import { UserEntity } from '../../user/entities/user.entity';
 
 export class ReturnLoginDto {
   constructor(token: string, user: UserEntity) {
