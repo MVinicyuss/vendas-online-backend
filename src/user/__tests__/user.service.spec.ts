@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { userEntityMock } from '../__mocks__/user.mock';
-import { createUserDtoMock} from '../__mocks__/createUser.mock';
+import { createUserDtoMock } from '../__mocks__/createUser.mock';
 
 describe('UserService', () => {
   let service: UserService;
@@ -17,8 +17,8 @@ describe('UserService', () => {
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
-            findOne: jest.fn().mockResolvedValue( userEntityMock ),
-            save: jest.fn().mockResolvedValue( userEntityMock ),
+            findOne: jest.fn().mockResolvedValue(userEntityMock),
+            save: jest.fn().mockResolvedValue(userEntityMock),
           },
         },
       ],
@@ -67,7 +67,9 @@ describe('UserService', () => {
 
   it('should return user in getUserByIdWithRelations', async () => {
     jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
-    expect(service.getUserByIdWithRelations(userEntityMock.id)).rejects.toThrow();
+    expect(
+      service.getUserByIdWithRelations(userEntityMock.id),
+    ).rejects.toThrow();
   });
 
   it('should return error if user exists', async () => {
@@ -80,5 +82,4 @@ describe('UserService', () => {
     const user = await service.createUser(createUserDtoMock);
     expect(user).toEqual(userEntityMock);
   });
-
 });
