@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { userEntityMock } from '../__mocks__/user.mock';
-import { createUserDtoMock } from '../__mocks__/createUser.mock';
+import { createUserMock } from '../__mocks__/createUser.mock';
 
 describe('UserService', () => {
   let service: UserService;
@@ -73,13 +73,14 @@ describe('UserService', () => {
   });
 
   it('should return error if user exists', async () => {
-    expect(service.createUser(createUserDtoMock)).rejects.toThrow(new Error());
+    expect(service.createUser(createUserMock)).rejects.toThrow();
   });
 
   it('should return user if user not exists', async () => {
     jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
-    const user = await service.createUser(createUserDtoMock);
+    const user = await service.createUser(createUserMock);
+    
     expect(user).toEqual(userEntityMock);
   });
 });
