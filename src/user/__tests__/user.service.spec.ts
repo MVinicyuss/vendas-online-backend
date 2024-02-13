@@ -80,7 +80,7 @@ describe('UserService', () => {
     jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
     const user = await service.createUser(createUserMock);
-    
+
     expect(user).toEqual(userEntityMock);
   });
 });

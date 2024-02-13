@@ -16,16 +16,16 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         {
-            provide: UserService,
-            useValue: {
-                findUserByEmail: jest.fn().mockResolvedValue(userEntityMock),
-            }
+          provide: UserService,
+          useValue: {
+            findUserByEmail: jest.fn().mockResolvedValue(userEntityMock),
+          },
         },
         {
-            provide: JwtService,
-            useValue: {
-                sign: () => jwtMock,
-            }
+          provide: JwtService,
+          useValue: {
+            sign: () => jwtMock,
+          },
         },
       ],
     }).compile();
@@ -39,22 +39,30 @@ describe('AuthService', () => {
     expect(userService).toBeDefined();
   });
 
-  it('should return user if email and password match', async () => {
+  it('should return user if email and password valid', async () => {
     const user = await service.login(loginPayloadMock);
 
     expect(user).toEqual({
-        accessToken: jwtMock,
-        user: new ReturnUserDto(userEntityMock),
-    })
+      accessToken: jwtMock,
+      user: new ReturnUserDto(userEntityMock),
+    });
   });
 
-  it('should return user if email valid or password invalid match', async () => {
-    const user = await service.login({ ...loginPayloadMock, password: '1234' });
-
-    expect(user).toEqual({
-        accessToken: jwtMock,
-        user: new ReturnUserDto(userEntityMock),
-    })
+  it('should return user if email valid and password invalid', async () => {
+    expect(
+      service.login({ ...loginPayloadMock, password: '1234' }),
+    ).rejects.toThrow();
   });
 
+  it('should return user if email not exists', async () => {
+    jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(undefined);
+
+    expect(service.login(loginPayloadMock)).rejects.toThrow();
+  });
+
+  it('should error in UserService', async () => {
+    jest.spyOn(userService, 'findUserByEmail').mockRejectedValue(new Error());
+
+    expect(service.login(loginPayloadMock)).rejects.toThrow();
+  });
 });

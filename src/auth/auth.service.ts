@@ -22,7 +22,10 @@ export class AuthService {
         throw err;
       });
 
-    const isPasswordValid = await hash(loginUserDto.password, user?.password || "");
+    const isPasswordValid = await hash(
+      loginUserDto.password,
+      user?.password || '',
+    );
 
     if (!user || !isPasswordValid) {
       throw new Error('Email and Password not match');
