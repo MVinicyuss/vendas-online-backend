@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UsePipes,
   ValidationPipe,
@@ -26,5 +27,11 @@ export class AddressController {
     return await this.addressService
       .createAddress(createAddressDto, userId)
       .then((address) => new ReturnAddressDto(address));
+  }
+
+  @Get()
+  @Roles(UserType.User, UserType.Admin)
+  async findAddresses(@UserId() userId: number): Promise<ReturnAddressDto[]> {
+    return await this.addressService.findAllAddressesByUserId(userId).then((addresses) => addresses.map((address) => new ReturnAddressDto(address)));
   }
 }
