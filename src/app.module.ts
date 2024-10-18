@@ -18,6 +18,7 @@ import { RolesGuard } from './guards/roles.guard';
         '.env.development.local',
         '.env.development',
         '.env.production',
+        '.env',
       ],
     }),
     TypeOrmModule.forRoot({
