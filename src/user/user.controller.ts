@@ -10,6 +10,8 @@ import {
 import { CreateUserDto } from '../user/dtos/createUser.dto';
 import { UserService } from './user.service';
 import { ReturnUserDto } from './dtos/returnUser.dto';
+import { Roles } from '../decorators/roles.decorator';
+import { UserType } from '../user/enum/user-type.enum';
 
 @Controller('user')
 export class UserController {
@@ -30,6 +32,7 @@ export class UserController {
       .then((user) => new ReturnUserDto(user));
   }
 
+  @Roles(UserType.User)
   @Get('/relations/:userId')
   async getUserByIdWithRelations(
     @Param('userId') userId: number,
